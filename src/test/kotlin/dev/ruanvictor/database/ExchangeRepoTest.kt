@@ -4,28 +4,13 @@ import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
-import org.koin.dsl.module
-import org.koin.test.KoinTest
-import org.koin.test.KoinTestRule
 import java.math.BigDecimal
 import java.time.LocalDateTime
 import kotlin.test.assertNotNull
 
-class ExchangeRepoTest : KoinTest {
+class ExchangeRepoTest {
     private val repo = ExchangeRepo()
-
-    @get:Rule
-    val koinTestRule = KoinTestRule.create {
-        printLogger()
-
-        val exchangeModule = module {
-            single { ExchangeRepo() }
-        }
-
-        modules(exchangeModule)
-    }
 
     @Before
     fun setup() {
