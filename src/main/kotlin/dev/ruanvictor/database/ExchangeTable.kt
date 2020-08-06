@@ -1,6 +1,7 @@
 package dev.ruanvictor.database
 
-import org.jetbrains.exposed.dao.id.IntIdTable
+import org.jetbrains.exposed.sql.ResultRow
+import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.`java-time`.datetime
 import java.math.BigDecimal
 import java.time.LocalDateTime
@@ -22,3 +23,10 @@ data class ExchangeRecord(
     val rate: BigDecimal,
     val createdAt: LocalDateTime
 )
+
+fun ExchangeTable.rowToExchangeRecord(row: ResultRow): ExchangeRecord =
+    ExchangeRecord(
+        createdAt = row[createdAt], originCurrency = row[originCurrency],
+        originValue = row[originValue], targetCurrency = row[targetCurrency],
+        rate = row[rate], user = row[userId]
+    )

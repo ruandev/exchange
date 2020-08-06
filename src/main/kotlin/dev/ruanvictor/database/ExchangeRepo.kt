@@ -1,10 +1,9 @@
 package dev.ruanvictor.database
 
+import org.jetbrains.exposed.sql.Op
 import org.jetbrains.exposed.sql.insert
-import org.jetbrains.exposed.sql.insertAndGetId
+import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
-import org.koin.ext.scope
-import java.time.LocalDateTime
 
 class ExchangeRepo {
 
@@ -18,5 +17,13 @@ class ExchangeRepo {
                 it[targetCurrency] = exchangeRecord.targetCurrency
                 it[rate] = exchangeRecord.rate
             }.get(ExchangeTable.userId)
+        }
+
+    fun findAllByUserId(id: Int): List<ExchangeRecord> =
+        transaction {
+            ExchangeTable
+                .select(Op.build { ExchangeTable.userId.eq(id) })
+                .map { resultRow -> ExchangeTable.rowToExchangeRecord(resultRow) }
+                .toList()
         }
 }
