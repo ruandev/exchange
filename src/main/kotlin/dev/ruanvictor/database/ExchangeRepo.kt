@@ -10,13 +10,13 @@ class ExchangeRepo {
 
     fun insert(exchangeRecord: ExchangeRecord) : Int =
         transaction {
-            ExchangeTable.insertAndGetId {
+            ExchangeTable.insert {
                 it[userId] = exchangeRecord.user
                 it[createdAt] = exchangeRecord.createdAt
                 it[originCurrency] = exchangeRecord.originCurrency
                 it[originValue] = exchangeRecord.originValue
                 it[targetCurrency] = exchangeRecord.targetCurrency
                 it[rate] = exchangeRecord.rate
-            }.value
+            }.get(ExchangeTable.userId)
         }
 }

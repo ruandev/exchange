@@ -5,7 +5,7 @@ import org.jetbrains.exposed.sql.`java-time`.datetime
 import java.math.BigDecimal
 import java.time.LocalDateTime
 
-object ExchangeTable : IntIdTable("exchange") {
+object ExchangeTable : Table("exchange") {
     val userId = integer("user_id")
     val createdAt = datetime("created_at")
     val originCurrency = varchar("origin_currency", 3)
