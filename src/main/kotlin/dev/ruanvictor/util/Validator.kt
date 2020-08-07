@@ -1,7 +1,5 @@
 package dev.ruanvictor.util
 
-import java.math.BigDecimal
-
 class Validator {
     fun isValidCurrency(currency: String) : Boolean {
         val currencyWithoutQuotes = currency.replace("\"", "")
@@ -17,7 +15,7 @@ class Validator {
         return true
     }
 
-    fun isValidAmount(amount: BigDecimal) : Boolean {
-        return amount>=BigDecimal.ZERO
+    fun isValidAmount(amount: Double) : Boolean {
+        return amount>=0
     }
 }

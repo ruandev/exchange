@@ -1,7 +1,6 @@
 package dev.ruanvictor.util
 
 import org.junit.Test
-import java.math.BigDecimal
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
@@ -51,13 +50,13 @@ class ValidatorTest {
 
     @Test
     fun `should return true if the amount is less than zero`() {
-        val isValid = Validator().isValidAmount(BigDecimal(-100))
+        val isValid = Validator().isValidAmount(-100.0)
         assertFalse(isValid)
     }
 
     @Test
     fun `should return false if the amount is greater than zero`() {
-        val isValid = Validator().isValidAmount(BigDecimal(100))
+        val isValid = Validator().isValidAmount(100.0)
         assertTrue(isValid)
     }
 }
