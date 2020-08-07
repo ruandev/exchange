@@ -1,6 +1,7 @@
 package dev.ruanvictor.util
 
 import org.junit.Test
+import java.math.BigDecimal
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
@@ -46,5 +47,17 @@ class ValidatorTest {
     fun `should return false must return false if the string contains letters with accents`() {
         val isValid = Validator().isValidCurrency("ãBc")
         assertFalse(isValid)
+    }
+
+    @Test
+    fun `should return true if the amount is less than zero`() {
+        val isValid = Validator().isValidAmount(BigDecimal(-100))
+        assertFalse(isValid)
+    }
+
+    @Test
+    fun `should return false if the amount is greater than zero`() {
+        val isValid = Validator().isValidAmount(BigDecimal(100))
+        assertTrue(isValid)
     }
 }
