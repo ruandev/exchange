@@ -1,5 +1,6 @@
 package dev.ruanvictor.database
 
+import dev.ruanvictor.web.responses.ExchangeResponse
 import org.jetbrains.exposed.sql.Op
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
@@ -19,11 +20,11 @@ class ExchangeRepo {
             }.get(ExchangeTable.userId)
         }
 
-    fun findAllByUserId(id: Int): List<ExchangeRecord> =
+    fun findAllByUserId(id: Int): List<ExchangeResponse> =
         transaction {
             ExchangeTable
                 .select(Op.build { ExchangeTable.userId.eq(id) })
-                .map { resultRow -> ExchangeTable.rowToExchangeRecord(resultRow) }
+                .map { resultRow -> ExchangeTable.rowToExchangeResponse(resultRow) }
                 .toList()
         }
 }
