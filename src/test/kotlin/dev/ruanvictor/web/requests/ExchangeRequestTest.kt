@@ -1,4 +1,4 @@
-package dev.ruanvictor.requests
+package dev.ruanvictor.web.requests
 
 import org.junit.Test
 import java.math.BigDecimal

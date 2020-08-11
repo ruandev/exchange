@@ -1,4 +1,4 @@
-package dev.ruanvictor.requests
+package dev.ruanvictor.web.requests
 
 import dev.ruanvictor.database.ExchangeRecord
 import java.math.BigDecimal
