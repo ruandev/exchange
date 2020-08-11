@@ -9,7 +9,8 @@ data class ExchangeRequest (
     val user: Int,
     val currencyFrom: String,
     val amount: BigDecimal,
-    val currencyTo: String
+    val currencyTo: String,
+    val flowId: String
 )
 
 fun ExchangeRequest.toExchangeRecord(rate: BigDecimal) : ExchangeRecord {

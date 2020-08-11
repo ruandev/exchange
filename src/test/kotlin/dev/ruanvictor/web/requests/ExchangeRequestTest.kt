@@ -9,7 +9,7 @@ class ExchangeRequestTest {
 
     @Test
     fun `should transform an exchange request into an exchange record`() {
-        val exchangeRequest = ExchangeRequest(1, "ABC", BigDecimal.TEN, "QWE")
+        val exchangeRequest = ExchangeRequest(1, "ABC", BigDecimal.TEN, "QWE", "FLWID")
         val exchangeRecord = exchangeRequest.toExchangeRecord(BigDecimal.ZERO)
 
         assertEquals(exchangeRecord.user, exchangeRequest.user)
