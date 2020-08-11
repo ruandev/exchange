@@ -24,7 +24,7 @@ Although they are new technologies for me, as is the project's tech stack, I dec
 * web
 ** controllers: Classes and methods to mapping actions of routes
 ** requests: Classes that represent requests received by the API 
-**-- responses: Classes that represent responses sent by the API
+** responses: Classes that represent responses sent by the API
 ```
 
 ## How do I execute the project?
@@ -33,7 +33,8 @@ Although they are new technologies for me, as is the project's tech stack, I dec
 
 _The server runs on port **7000**_
 
-##How do I use an API?
+## How do I use an API?
+
 There is an endpoint to exchange:
 `/exchange?currencyFrom=XXX&currencyTo=YYY&amount=0`
 
