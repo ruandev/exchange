@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ruandev/exchange.svg?branch=master)](https://travis-ci.org/ruandev/exchange)
+
 ## Purpose
 The objective of this project is the exchange between currencies. To know the rate to be applied for the exchange, the [Exchange rates API](http://exchangeratesapi.io/) is used
 
