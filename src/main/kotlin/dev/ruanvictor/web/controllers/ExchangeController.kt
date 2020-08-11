@@ -3,7 +3,12 @@ package dev.ruanvictor.web.controllers
 import dev.ruanvictor.services.ExchangeService
 import dev.ruanvictor.util.Validator
 import dev.ruanvictor.web.requests.ExchangeRequest
+import dev.ruanvictor.web.responses.ExchangeResponse
 import io.javalin.http.Context
+import io.javalin.plugin.openapi.annotations.OpenApi
+import io.javalin.plugin.openapi.annotations.OpenApiContent
+import io.javalin.plugin.openapi.annotations.OpenApiParam
+import io.javalin.plugin.openapi.annotations.OpenApiResponse
 import org.koin.core.logger.Level
 import org.koin.core.logger.PrintLogger
 import java.math.BigDecimal
@@ -11,6 +16,20 @@ import java.util.UUID.randomUUID
 
 class ExchangeController (private val exchangeService: ExchangeService)  {
 
+    @OpenApi(
+        summary = "Make exchange and save the register",
+        operationId = "exchange",
+        queryParams = [
+            OpenApiParam("currencyFrom", String::class, "The base currency for the exchange", required = true),
+            OpenApiParam("currencyTo", String::class, "The target currency for the exchange", required = true),
+            OpenApiParam("amount", Double::class, "The amount to be exchanged", required = true)
+        ],
+        headers = [OpenApiParam("user_id", Int::class, "The user ID", required = true)],
+        responses = [
+            OpenApiResponse("200", [OpenApiContent(ExchangeResponse::class)]),
+            OpenApiResponse("400", description = "Validation errors and other errors known to the api")
+        ]
+    )
     fun exchange(ctx: Context) {
         val flowId = randomUUID().toString()
 
@@ -41,6 +60,16 @@ class ExchangeController (private val exchangeService: ExchangeService)  {
         }
     }
 
+    @OpenApi(
+        summary = "List all exchanges by user ID",
+        operationId = "exchangesByUserId",
+        pathParams = [OpenApiParam("userId", Int::class, "The user ID", required = true)],
+        responses = [
+            OpenApiResponse("200", [OpenApiContent(ExchangeResponse::class, isArray = true)]),
+            OpenApiResponse("204"),
+            OpenApiResponse("400", description = "Validation errors and other errors known to the api")
+        ]
+    )
     fun exchangesByUserId(ctx: Context) {
         val flowId = randomUUID().toString()
 

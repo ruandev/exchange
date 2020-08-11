@@ -47,11 +47,15 @@ dependencies {
     implementation("org.koin", "koin-core", "2.1.6")
     testImplementation("org.koin", "koin-test", "2.1.6")
 
-    implementation("io.javalin:javalin:3.9.1")
-    implementation("com.fasterxml.jackson.core", "jackson-databind", "2.10.3")
-
     implementation("org.json", "json", "20190722")
     testImplementation("com.pgs-soft", "HttpClientMock", "1.0.0")
     testImplementation("org.mockito:mockito-core:3.0.0")
     testImplementation("io.mockk:mockk:1.10.0")
+
+    implementation("io.javalin:javalin:3.9.1")
+    implementation("io.javalin:javalin-openapi:3.9.1")
+    implementation("com.fasterxml.jackson.core", "jackson-databind", "2.11.2")
+    implementation("com.fasterxml.jackson.module", "jackson-module-kotlin", "2.11.2")
+    implementation("org.webjars:swagger-ui:3.17.6")
+    implementation("io.swagger.core.v3:swagger-core:2.1.4")
 }
