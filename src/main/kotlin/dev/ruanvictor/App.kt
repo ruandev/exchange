@@ -6,6 +6,15 @@ package dev.ruanvictor
 import dev.ruanvictor.config.AppConfig
 
 fun main(args: Array<String>) {
-    AppConfig().setup().start(7000)
+    AppConfig().setup().start(getHerokuAssignedPort())
 }
 
+private fun getHerokuAssignedPort(): Int {
+    val processBuilder = ProcessBuilder()
+
+    if (processBuilder.environment()["PORT"] != null) {
+        return Integer.parseInt(processBuilder.environment()["PORT"])
+    }
+
+    return 7000
+}
