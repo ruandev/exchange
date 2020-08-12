@@ -1,14 +1,15 @@
 package dev.ruanvictor.services
 
 import org.json.JSONObject
-import org.koin.core.logger.Level
-import org.koin.core.logger.PrintLogger
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.net.URI
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
 import java.net.http.HttpResponse
 
 class RatesServiceImpl : RatesService {
+    private val LOG: Logger = LoggerFactory.getLogger(javaClass.simpleName)
 
     override fun retrieveRates(baseCurrency: String, flowId: String?) : MutableMap<String, Any>? {
         val httpClient: HttpClient = HttpClient.newBuilder().build()
@@ -20,15 +21,16 @@ class RatesServiceImpl : RatesService {
         val httpResponse = httpClient.send(requestHead, HttpResponse.BodyHandlers.ofString())
 
         if(httpResponse.statusCode() != 200 ) {
-            PrintLogger().log(Level.ERROR, "FlowId: $flowId Error trying to retrieve rates. " +
-                    "Error: ${httpResponse.body()}")
-            throw Exception("Error trying to retrieve rates. ${httpResponse.body()}")
+            val err = JSONObject(httpResponse.body()).get("error")
+            LOG.error("FlowId: $flowId Msg: Error trying to retrieve rates. $err")
+            throw Exception("Error trying to retrieve rates. $err")
         }
 
         return try {
+            LOG.info("FlowId: $flowId Msg: Success in retrieve rates")
             JSONObject(httpResponse.body()).getJSONObject("rates").toMap()
         } catch (e: Exception) {
-            PrintLogger().log(Level.ERROR, "FlowId: $flowId Error when trying to convert the rates response")
+            LOG.error("FlowId: $flowId Msg: Error when trying to convert the rates response")
             null
         }
     }

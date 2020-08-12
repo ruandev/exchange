@@ -41,8 +41,10 @@ dependencies {
     implementation("org.jetbrains.exposed", "exposed-dao", "0.24.1")
     implementation("org.jetbrains.exposed", "exposed-jdbc", "0.24.1")
     implementation("org.jetbrains.exposed", "exposed-java-time", "0.24.1")
+
     implementation("com.h2database:h2:1.4.199")
-    implementation("org.slf4j:slf4j-nop:1.7.30")
+
+    implementation("org.slf4j:slf4j-simple:1.7.30")
 
     implementation("org.koin", "koin-core", "2.1.6")
     testImplementation("org.koin", "koin-test", "2.1.6")

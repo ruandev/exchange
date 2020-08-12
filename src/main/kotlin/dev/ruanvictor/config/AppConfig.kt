@@ -9,8 +9,10 @@ import io.swagger.v3.oas.models.info.Info
 import org.koin.core.KoinComponent
 import org.koin.core.context.startKoin
 import org.koin.core.inject
+import org.slf4j.LoggerFactory
 
 class AppConfig : KoinComponent {
+    private val LOG = LoggerFactory.getLogger(javaClass.simpleName)
 
     private val router: Router by inject()
 
@@ -24,6 +26,10 @@ class AppConfig : KoinComponent {
         }
 
         return Javalin.create{ config ->
+            config.requestLogger { ctx, ms ->
+                val flowId = ctx.res.getHeader("flowId")
+                LOG.info("FlowId: $flowId Total time: $ms ms")
+            }
             config.registerPlugin(getConfiguredOpenApiPlugin())
         }.also { app ->
                     router.register(app)

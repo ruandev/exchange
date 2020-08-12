@@ -9,12 +9,12 @@ import io.javalin.plugin.openapi.annotations.OpenApi
 import io.javalin.plugin.openapi.annotations.OpenApiContent
 import io.javalin.plugin.openapi.annotations.OpenApiParam
 import io.javalin.plugin.openapi.annotations.OpenApiResponse
-import org.koin.core.logger.Level
-import org.koin.core.logger.PrintLogger
+import org.slf4j.LoggerFactory
 import java.math.BigDecimal
 import java.util.UUID.randomUUID
 
 class ExchangeController (private val exchangeService: ExchangeService)  {
+    private val LOG = LoggerFactory.getLogger(javaClass.simpleName)
 
     @OpenApi(
         summary = "Make exchange and save the register",
@@ -47,15 +47,18 @@ class ExchangeController (private val exchangeService: ExchangeService)  {
 
         val user = ctx.header<Int>("user_id").get()
 
-        PrintLogger().log(Level.INFO, "Flow Id: $flowId " +
+        LOG.info("Flow Id: $flowId " +
                 "CurrencyFrom: $currencyFrom " +
                 "Amount: $amount " +
-                "CurrencyTo: $currencyTo")
+                "CurrencyTo: $currencyTo " +
+                "User: $user")
 
         try {
             val exchangeRecord = exchangeService.saveExchange(ExchangeRequest(user, currencyFrom, BigDecimal(amount), currencyTo, flowId))
+            LOG.info("Flow Id: $flowId Msg: Successful exchange.")
             ctx.header("flowId", flowId).status(200).json(exchangeRecord)
         } catch (e: Exception) {
+            LOG.error("Flow Id: $flowId Msg: Error trying to exchange. ${e.localizedMessage}")
             ctx.header("flowId", flowId).status(400).json(e.localizedMessage)
         }
     }
@@ -75,14 +78,17 @@ class ExchangeController (private val exchangeService: ExchangeService)  {
 
         val userId = ctx.pathParam("userId", Int::class.java).get()
 
-        PrintLogger().log(Level.INFO, "Flow Id: $flowId " +
-                "UserID: $userId ")
+        LOG.info("Flow Id: $flowId UserID: $userId ")
 
         try {
             val exchangeRecord = exchangeService.listExchangesByUserId(userId, flowId)
             val statusCode = if(exchangeRecord.isNullOrEmpty()) 204 else 200
+            LOG.info("FlowId: $flowId " +
+                    "Msg: Success in retrieving all exchanges for userId " +
+                    "StatusCode: $statusCode")
             ctx.header("flowId", flowId).status(statusCode).json(exchangeRecord)
         } catch (e: Exception) {
+            LOG.error("FlowId: $flowId Msg: Error when trying to retrieve all exchanges by userId")
             ctx.header("flowId", flowId).status(400).json(e.localizedMessage)
         }
     }
