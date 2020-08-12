@@ -1,1 +1,1 @@
-web: ./build/install/exchange/bin/exchange
+web: ./gradlew run
