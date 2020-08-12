@@ -1,6 +1,17 @@
 language: java
+deploy:
+  provider: heroku
+  api_key:
+    secure: hqTFoXncRszRpJLPjoycKVYGqTV2pJsopPcCI2PeD4MihnKr/pDJDSIw6PWvLbeq+f2rA55aHdSIBHXgZPFkA4kJXmivEBZBg0u2FoENdi8zVmq72c42Y9cSYBLq1OV8an6pdbgszD7UqcG/kjRfVxVe6TuqnXcmnm0y/wvj0mkV+mQTfpHaTpDvbOREeWyUpon+NiQLVgjQ2x3afsyAB7ceQaXGDRsNPWKaVbf7p5Afr8a3wW1Du/MqYcRvu0IDr9kzIt89ulTj8JRtNecg3VbkFRHqcaahFTZvK4I5We+EcHgE4VV3glSlTZJ8MZ/3ABvrBjrNpwHbZDI42CzJO6mAWhYbGqvfwAU6pGs0fQfwe2YF8ZLM6x8puINd5FAB+JhXPtGcGP8ZvHZ82uQfegK5yhZMqdumQdh1Gev9fbyLCevMhjFdZ4mdsbWEAlpZVIVUB4ZHYl9RY8MVpyMffBGQAQmHFuytqnvMP8VniMpQZW7ZmKyTkLt3eIa9keSPfgC2xWZu8qRLdNlZfYv+j56b7fTeK+oSAnPJEKagyItJGBSngaduIaEYUatfka7eNAcNTRYwMFSqWtyN2a1XFcZL4JzfhbknQmHcLRe6irgth8mp2d2AtGzrLuXtkHNEWNsYF0cy8MKPaJusooUqdlfyIj2S66P6mzg132SLUCc=
 before_install:
-  - chmod +x gradlew
-  - chmod +x gradle/wrapper/gradle-wrapper.jar
+- chmod +x gradlew
+- chmod +x gradle/wrapper/gradle-wrapper.jar
+before_cache:
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
 script:
-  - ./gradlew test build
+- "./gradlew test build"
