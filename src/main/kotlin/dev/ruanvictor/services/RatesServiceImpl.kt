@@ -23,7 +23,7 @@ class RatesServiceImpl : RatesService {
         if(httpResponse.statusCode() != 200 ) {
             val err = JSONObject(httpResponse.body()).get("error")
             LOG.error("FlowId: $flowId Msg: Error trying to retrieve rates. $err")
-            throw Exception("Error trying to retrieve rates. $err")
+            throw IllegalStateException("Error trying to retrieve rates. $err")
         }
 
         return try {
