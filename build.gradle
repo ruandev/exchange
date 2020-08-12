@@ -7,21 +7,24 @@
 plugins {
     // Apply the Kotlin JVM plugin to add support for Kotlin.
     id("org.jetbrains.kotlin.jvm") version "1.3.70"
-
-    // Apply the application plugin to add support for building a CLI application.
-    application
+    id("com.github.johnrengelman.shadow") version "6.0.0"
 }
+
+apply plugin: 'application'
 
 application {
     mainClassName = "dev.ruanvictor.AppKt"
 }
 
+shadowJar {
+    manifest {
+        attributes "Main-Class": "dev.ruanvictor.AppKt"
+    }
+}
+
 repositories {
-    // Use jcenter for resolving dependencies.
-    // You can declare any Maven/Ivy/file repository here.
     jcenter()
     mavenCentral()
-
 }
 
 dependencies {
@@ -37,26 +40,26 @@ dependencies {
     // Use the Kotlin JUnit integration.
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
 
-    implementation("org.jetbrains.exposed", "exposed-core", "0.24.1")
-    implementation("org.jetbrains.exposed", "exposed-dao", "0.24.1")
-    implementation("org.jetbrains.exposed", "exposed-jdbc", "0.24.1")
-    implementation("org.jetbrains.exposed", "exposed-java-time", "0.24.1")
+    implementation("org.jetbrains.exposed:exposed-core:0.24.1")
+    implementation("org.jetbrains.exposed:exposed-dao:0.24.1")
+    implementation("org.jetbrains.exposed:exposed-jdbc:0.24.1")
+    implementation("org.jetbrains.exposed:exposed-java-time:0.24.1")
 
     implementation("com.h2database:h2:1.4.199")
 
     implementation("org.slf4j:slf4j-simple:1.7.30")
 
-    implementation("org.koin", "koin-core", "2.1.6")
-    testImplementation("org.koin", "koin-test", "2.1.6")
+    implementation("org.koin:koin-core:2.1.6")
+    testImplementation("org.koin:koin-test:2.1.6")
 
-    implementation("org.json", "json", "20190722")
+    implementation("org.json:json:20190722")
     testImplementation("org.mockito:mockito-core:3.0.0")
     testImplementation("org.mockito:mockito-inline:3.0.0")
 
     implementation("io.javalin:javalin:3.9.1")
     implementation("io.javalin:javalin-openapi:3.9.1")
-    implementation("com.fasterxml.jackson.core", "jackson-databind", "2.11.2")
-    implementation("com.fasterxml.jackson.module", "jackson-module-kotlin", "2.11.2")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.11.2")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.11.2")
     implementation("org.webjars:swagger-ui:3.17.6")
     implementation("io.swagger.core.v3:swagger-core:2.1.4")
 }
