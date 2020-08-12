@@ -50,9 +50,8 @@ dependencies {
     testImplementation("org.koin", "koin-test", "2.1.6")
 
     implementation("org.json", "json", "20190722")
-    testImplementation("com.pgs-soft", "HttpClientMock", "1.0.0")
     testImplementation("org.mockito:mockito-core:3.0.0")
-    testImplementation("io.mockk:mockk:1.10.0")
+    testImplementation("org.mockito:mockito-inline:3.0.0")
 
     implementation("io.javalin:javalin:3.9.1")
     implementation("io.javalin:javalin-openapi:3.9.1")
